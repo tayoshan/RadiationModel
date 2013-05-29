@@ -79,15 +79,17 @@ flows = rad_model(data, tree, num_sites, dists)
 
 #Graph results
 print "Graphing proposed network"
-cutoff = np.max(flows) * .05
-G=nx.Graph()
+cutoff = np.max(flows) * 0
+G=nx.DiGraph()
 links = []
+widths = []
 rows,cols = np.shape(flows)
 for row in range(rows):
     for col in range(cols):
         if flows[row,col] > cutoff:
-            links.append([str(row),str(col)])
-G.add_edges_from(links)
+            links.append([str(row),str(col), (flows[row,col]*100)])
+            widths.append(flows[row,col]*5)
+G.add_weighted_edges_from(links)
 
-nx.draw(G, pos)
+nx.draw_networkx(G, pos, width = widths)
 plt.pyplot.show()
