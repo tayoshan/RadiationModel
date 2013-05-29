@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib as plt
 import math
+#import networkx as nx
+from scipy.spatial import KDTree
 
 
 #To analytically predict the the commuting fluxes we consider locations i and j with population m(i) and n(j) respecitively, at ditance r(ij) from each other,
@@ -70,7 +72,22 @@ def rad_model(data, tree, num_sites, dists):
     return flows
 
 #Preprocess data
-data, tree, num_sites, dists,pos = get_data("C:\Users\ImAwesome\Desktop\New folder\dev\data\SiteData.csv")
+data, tree, num_sites, dists,pos = get_data("C:\Users\ImAwesome\RadiationModel\SiteData.csv")
 
 #Run Model
 flows = rad_model(data, tree, num_sites, dists)
+
+#Graph results
+print "Graphing proposed network"
+cutoff = np.max(flows) * .05
+G=nx.Graph()
+links = []
+rows,cols = np.shape(flows)
+for row in range(rows):
+    for col in range(cols):
+        if flows[row,col] > cutoff:
+            links.append([str(row),str(col)])
+G.add_edges_from(links)
+
+nx.draw(G, pos)
+plt.pyplot.show()
