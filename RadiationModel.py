@@ -47,7 +47,7 @@ def get_data(file_path):
 #Function to calculate total estimated area within distance r from an origin site
 def s(data,tree,i,j, dist):
     s_total = 0
-    comp_sites = tree.query_ball_point(data[i,2:], dist) #Query kdtree to find all sites within distance restriction -- these are the competing destinations
+    comp_sites = tree.query_ball_point(data[i,2:4], dist) #Query kdtree to find all sites within distance restriction -- these are the competing destinations
     if len(comp_sites) > 1: #If there is more then one competing site
         for each in comp_sites:
             if each != i and each != j: #Exclude M and N from the total
@@ -72,7 +72,7 @@ def rad_model(data, tree, num_sites, dists):
     return flows
 
 #Preprocess data
-data, tree, num_sites, dists,pos = get_data("C:\Users\ImAwesome\RadiationModel\SiteData.csv")
+data, tree, num_sites, dists,pos = get_data("C:\Users\ImAwesome\RadiationModel\SiteDataPrjWEC.csv")
 
 #Run Model
 flows = rad_model(data, tree, num_sites, dists)
