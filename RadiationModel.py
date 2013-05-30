@@ -91,5 +91,5 @@ for row in range(rows):
             widths.append(flows[row,col]*5)
 G.add_weighted_edges_from(links)
 
-nx.draw_networkx(G, pos, width = widths)
+nx.draw_networkx(G,pos, width = widths, )
 plt.pyplot.show()
