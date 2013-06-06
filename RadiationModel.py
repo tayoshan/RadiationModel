@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib as plt
 import math
-#import networkx as nx
+import networkx as nx
 from scipy.spatial import KDTree
 
 
@@ -28,7 +28,7 @@ def get_data(file_path):
     data = np.loadtxt(open(file_path),delimiter=",",skiprows=1, dtype = str) #Load in CSV file
     data = np.array(data[:,1:], dtype = float) #Drop the sites name(easier to have no string types in the numpy array for the moment)
     x,y = data[:,2], data[:,3] #Isolate the long/lat coordinates for kdtree
-    tree = scipy.spatial.KDTree(zip(x.ravel(), y.ravel())) #Create KDtree
+    tree = KDTree(zip(x.ravel(), y.ravel())) #Create KDtree
     num_sites = np.size(data[:,1]) #Count number of sites in the data
     pos = {} #Tuple to store coordinates for plotting results
     for site in range(num_sites):
@@ -72,7 +72,7 @@ def rad_model(data, tree, num_sites, dists):
     return flows
 
 #Preprocess data
-data, tree, num_sites, dists,pos = get_data("C:\Users\ImAwesome\RadiationModel\SiteDataPrjWEC.csv")
+data, tree, num_sites, dists,pos = get_data("C:\Users\ImAwesome\My Documents\RadiationModel\SiteDataPrjWEC.csv")
 
 #Run Model
 flows = rad_model(data, tree, num_sites, dists)
@@ -91,5 +91,5 @@ for row in range(rows):
             widths.append(flows[row,col]*5)
 G.add_weighted_edges_from(links)
 
-nx.draw_networkx(G,pos, width = widths, )
+nx.draw_networkx(G,pos, width = widths, alpha = .7 )
 plt.pyplot.show()
