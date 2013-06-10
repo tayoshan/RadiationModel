@@ -77,8 +77,13 @@ def rad_model(data, tree, num_sites, dists, tot_ratio=1.0):
                 flows[i,j] = Tij #Flow calculation
     return flows
 
+<<<<<<< HEAD
 # Preprocess data
 data, tree, num_sites, dists,pos = get_data("SiteData.csv")
+=======
+#Preprocess data
+data, tree, num_sites, dists,pos = get_data("C:\Users\ImAwesome\My Documents\RadiationModel\SiteDataPrjWEC.csv")
+>>>>>>> 08fcc976837f5963ad0e3c45b6f9eba8a7137f96
 
 # Run Model
 flows = rad_model(data, tree, num_sites, dists, tot_ratio=1.0)
@@ -99,8 +104,13 @@ for row in range(rows):
             widths.append(flows[row,col]*0.01)
 G.add_weighted_edges_from(links)
 
+<<<<<<< HEAD
 nx.draw_networkx(G, pos, width = widths)
 #plt.pyplot.show()
 plt.pyplot.savefig('flows.png')
 out.close()
 
+=======
+nx.draw_networkx(G,pos, width = widths, alpha = .7 )
+plt.pyplot.show()
+>>>>>>> 08fcc976837f5963ad0e3c45b6f9eba8a7137f96
