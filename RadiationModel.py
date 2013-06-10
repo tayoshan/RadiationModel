@@ -47,7 +47,7 @@ def get_data(file_path):
 #Function to calculate total estimated area within distance r from an origin site
 def s(data,tree,i,j, dist):
     s_total = 0
-    comp_sites = tree.query_ball_point(data[i,2:], dist) #Query kdtree to find all sites within distance restriction -- these are the competing destinations
+    comp_sites = tree.query_ball_point(data[i,2:4], dist) #Query kdtree to find all sites within distance restriction -- these are the competing destinations
     if len(comp_sites) > 1: #If there is more then one competing site
         for each in comp_sites:
             if each != i and each != j: #Exclude M and N from the total
@@ -59,7 +59,7 @@ def s(data,tree,i,j, dist):
 #Function to calculate the flow from each origin site to each destination site using radiation model
 def rad_model(data, tree, num_sites, dists, tot_ratio=1.0):
     # tot_ratio comes from Ti from Eqn (2) of the Radiation paper
-    # In the paper, they define Ti as equivalent to \sum_{j != i}{Tij} or more simply: 
+    # In the paper, they define Ti as equivalent to \sum_{j != i}{Tij} or more simply:
     # Ti = Mi * (Nc/N) where Nc is total # of 'commuters' and N is total population
     # For our purposes, this acts like a 'scaling' factor, and can be set to 1 by default
     flows = np.zeros((num_sites,num_sites)) #Create an array to hold calculations from every site to each other site
@@ -77,13 +77,13 @@ def rad_model(data, tree, num_sites, dists, tot_ratio=1.0):
                 flows[i,j] = Tij #Flow calculation
     return flows
 
-<<<<<<< HEAD
+
 # Preprocess data
 data, tree, num_sites, dists,pos = get_data("SiteData.csv")
-=======
+
 #Preprocess data
 data, tree, num_sites, dists,pos = get_data("C:\Users\ImAwesome\My Documents\RadiationModel\SiteDataPrjWEC.csv")
->>>>>>> 08fcc976837f5963ad0e3c45b6f9eba8a7137f96
+
 
 # Run Model
 flows = rad_model(data, tree, num_sites, dists, tot_ratio=1.0)
@@ -104,13 +104,12 @@ for row in range(rows):
             widths.append(flows[row,col]*0.01)
 G.add_weighted_edges_from(links)
 
-<<<<<<< HEAD
+
 nx.draw_networkx(G, pos, width = widths)
 #plt.pyplot.show()
 plt.pyplot.savefig('flows.png')
 out.close()
 
-=======
+
 nx.draw_networkx(G,pos, width = widths, alpha = .7 )
 plt.pyplot.show()
->>>>>>> 08fcc976837f5963ad0e3c45b6f9eba8a7137f96
