@@ -5,11 +5,9 @@ Progress towards coding the radiation interaction model
 
 Progress towards coding the radiation interaction model
 
--Utilizes numpy for scientific computing and matplotlib for visualization
+-Utilizes numpy for scientific computing and matplotlib/networkx for visualization
 
--Visualization not yet added
 
--Not sure if flows from a site to itself should be contrained to 0
 
 -All distance calculation are based on euclidian distance despite the fact that the site's coordinates are
 in decimal degrees. This was to have consistent units, since the the kd tree seems to be using euclidean distance. 
