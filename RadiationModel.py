@@ -4,7 +4,6 @@ import math
 import networkx as nx
 from scipy.spatial import KDTree
 
-
 #To analytically predict the the commuting fluxes we consider locations i and j with population m(i) and n(j) respecitively, at ditance r(ij) from each other,
 #and we denote with s(ij) the total population in the circle of radius r(ij) centered at i (exluding the source and destination population).
 #The average flux T(ij) from i to j as predicted by the radiation model is :
@@ -94,15 +93,17 @@ cutoff = np.max(flows) * 0
 G=nx.DiGraph()
 links = []
 widths = []
+justLinks = []
 rows,cols = np.shape(flows)
 out = file('flows.csv', 'w') # create output file
 for row in range(rows):
     for col in range(cols):
         if flows[row,col] > cutoff:
-            out.write("%s\n" % flows[row, col]) # write flows to output file
+            out.writelines("%s\t%s\t%s\n" %  (row, col, flows[row, col])) # write flows to output file
             links.append([str(row),str(col), (flows[row,col]*1.0)])
             widths.append(flows[row,col]*0.01)
 G.add_weighted_edges_from(links)
+
 
 
 nx.draw_networkx(G, pos, width = widths)
@@ -113,3 +114,4 @@ out.close()
 
 nx.draw_networkx(G,pos, width = widths, alpha = .7 )
 plt.pyplot.show()
+
